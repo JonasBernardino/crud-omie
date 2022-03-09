@@ -1,9 +1,12 @@
 package com.jonas.crudomie.client.model;
 
 import com.jonas.crudomie.client.enumClient.Status;
+import com.jonas.crudomie.email.model.Email;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Client {
@@ -13,5 +16,12 @@ public class Client {
     private String name;
     private String nickname;
     private Status status;
-    private double idade;
+
+    @ManyToOne
+    @JoinColumn(name = "email_id")
+    private Email email;
+
+    public Email getEmail() {
+        return email;
+    }
 }
