@@ -2,13 +2,17 @@ package com.jonas.crudomie.client.model;
 
 import com.jonas.crudomie.client.enumClient.Status;
 import com.jonas.crudomie.email.model.Email;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

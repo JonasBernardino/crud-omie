@@ -3,12 +3,16 @@ package com.jonas.crudomie.email.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jonas.crudomie.category.model.Category;
 import com.jonas.crudomie.client.model.Client;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Email {
 
     @Id
