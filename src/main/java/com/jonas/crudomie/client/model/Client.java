@@ -2,26 +2,26 @@ package com.jonas.crudomie.client.model;
 
 import com.jonas.crudomie.client.enumClient.Status;
 import com.jonas.crudomie.email.model.Email;
+import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Data
 public class Client {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String subscription;
     private String name;
     private String nickname;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Status status;
 
-    @ManyToOne
-    @JoinColumn(name = "email_id")
-    private Email email;
-
-    public Email getEmail() {
-        return email;
-    }
+    @OneToMany()
+    @JoinColumn(name = "id_client")
+    private List<Email> emails;
 }
