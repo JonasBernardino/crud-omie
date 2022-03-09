@@ -3,6 +3,8 @@ package com.jonas.crudomie.client.controller;
 import com.jonas.crudomie.client.model.Client;
 import com.jonas.crudomie.client.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +20,8 @@ public class ClientController {
     private ClientService clientService;
 
     @GetMapping
-    public ResponseEntity<List<Client>> findAllClient(){
-        List<Client> list = clientService.findAllClient();
-        return ResponseEntity.ok().body(list);
+    public ResponseEntity<Page<Client>> findAllClient(Pageable pageable){
+        Page<Client> result = clientService.findAllClient(pageable);
+        return ResponseEntity.ok().body(result);
     }
 }
