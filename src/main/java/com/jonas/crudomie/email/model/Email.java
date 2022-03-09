@@ -1,5 +1,6 @@
 package com.jonas.crudomie.email.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jonas.crudomie.category.model.Category;
 import com.jonas.crudomie.client.model.Client;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class Email {
     private String email;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_client")
     private Client client;
 
