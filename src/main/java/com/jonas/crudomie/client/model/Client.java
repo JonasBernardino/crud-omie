@@ -20,7 +20,6 @@ public class Client {
     private String subscription;
     private String name;
     private String nickname;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;

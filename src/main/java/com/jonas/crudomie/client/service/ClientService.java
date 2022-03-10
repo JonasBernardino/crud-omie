@@ -1,5 +1,7 @@
 package com.jonas.crudomie.client.service;
 
+import com.jonas.crudomie.client.dto.ClientDtoFull;
+import com.jonas.crudomie.client.dto.ClientDtoShort;
 import com.jonas.crudomie.client.model.Client;
 import com.jonas.crudomie.client.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,18 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
-    public Page<Client> findAllClient(Pageable pageable){
+    public Page<ClientDtoFull> findAllClientFull(Pageable pageable){
         Page<Client> result = clientRepository.findAll(pageable);
-        return result;
+        Page<ClientDtoFull> page = result.map(x -> new ClientDtoFull(x));
+        return page;
     }
+
+    public Page<ClientDtoShort> findAllClientShort(Pageable pageable){
+        Page<Client> result = clientRepository.findAll(pageable);
+        Page<ClientDtoShort> page = result.map(x -> new ClientDtoShort(x));
+        return page;
+    }
+
 
 //    public Client findByIdClient(Long id){
 //
