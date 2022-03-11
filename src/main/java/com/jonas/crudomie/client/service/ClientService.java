@@ -4,10 +4,13 @@ import com.jonas.crudomie.client.dto.ClientDtoFull;
 import com.jonas.crudomie.client.dto.ClientDtoShort;
 import com.jonas.crudomie.client.model.Client;
 import com.jonas.crudomie.client.repository.ClientRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 @Service
@@ -33,12 +36,37 @@ public class ClientService {
         ClientDtoFull dto = new ClientDtoFull(result);
         return dto;
     }
+    public Client findById(Long id){
+      Optional<Client> obj = clientRepository.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id:",id + Client.class.getName()));
+    }
+
+    public ClientDtoShort findByIdClientShort(Long id) {
+        Client result = clientRepository.findById(id).get();
+        ClientDtoShort dto = new ClientDtoShort(result);
+        return dto;
+    }
+
     public void deleteClient(Long id){
         findByIdClient(id);
         clientRepository.deleteById(id);
     }
 
-    public Client create(ClientDtoShort obj) {
+    public Client createClient(ClientDtoShort obj) {
+        return fromClient(obj);
+    }
+
+    public Client updateClientShort(Long id, ClientDtoShort clientDtoShort) {
+        Client clientObj = findById(id);
+        clientObj.setName(clientDtoShort.getName());
+        clientObj.setNickname(clientDtoShort.getNickname());
+        clientObj.setStatus(clientDtoShort.getStatus());
+        clientObj.setSubscription(clientDtoShort.getSubscription());
+        return clientObj;
+    }
+    public Client update(ClientDtoShort obj) {
+        findById(obj.getId());
         return fromClient(obj);
     }
 
@@ -51,6 +79,8 @@ public class ClientService {
         newObj.setSubscription(obj.getSubscription());
         return clientRepository.save(newObj);
     }
+
+
 
 
 //    public Client findByIdClient(Long id){

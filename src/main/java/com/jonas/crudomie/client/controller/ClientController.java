@@ -34,6 +34,11 @@ public class ClientController {
         ClientDtoFull clientDtoFull = clientService.findByIdClient(id);
         return ResponseEntity.ok().body(clientDtoFull);
     }
+    @GetMapping("/short/{id}")
+    public ResponseEntity<ClientDtoShort> findByIdClientShort(@PathVariable Long id){
+        ClientDtoShort clientDtoShort = clientService.findByIdClientShort(id);
+        return ResponseEntity.ok().body(clientDtoShort);
+    }
 
     @DeleteMapping("{/id}")
     public ResponseEntity<Void> deleteCliEntity(@PathVariable Long id){
@@ -42,12 +47,22 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<ClientDtoShort> create(@RequestBody ClientDtoShort obj){
-        obj = new ClientDtoShort(clientService.create(obj));
+    public ResponseEntity<ClientDtoShort> createClient(@RequestBody ClientDtoShort obj){
+        obj = new ClientDtoShort(clientService.createClient(obj));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return  ResponseEntity.created(uri).build();
     }
 
+//    @PutMapping("/short{/id}")
+//    public ResponseEntity<ClientDtoShort> updateClient(@PathVariable Long id, @RequestBody ClientDtoShort clientDtoShort){
+//        ClientDtoShort newObj = new ClientDtoShort(clientService.updateClientShort(id, clientDtoShort));
+//        return ResponseEntity.ok().body(newObj);
+//    }
+    @PutMapping
+    public ResponseEntity<ClientDtoShort> update(@RequestBody ClientDtoShort obj){
+        obj = new ClientDtoShort(clientService.update(obj));
+        return ResponseEntity.ok().body(obj);
+    }
 
 
 }
