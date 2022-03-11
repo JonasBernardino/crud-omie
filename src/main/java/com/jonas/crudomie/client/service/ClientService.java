@@ -56,16 +56,7 @@ public class ClientService {
     public Client createClient(ClientDtoShort obj) {
         return fromClient(obj);
     }
-
-    public Client updateClientShort(Long id, ClientDtoShort clientDtoShort) {
-        Client clientObj = findById(id);
-        clientObj.setName(clientDtoShort.getName());
-        clientObj.setNickname(clientDtoShort.getNickname());
-        clientObj.setStatus(clientDtoShort.getStatus());
-        clientObj.setSubscription(clientDtoShort.getSubscription());
-        return clientObj;
-    }
-    public Client update(ClientDtoShort obj) {
+    public Client updateClientShort(ClientDtoShort obj) {
         findById(obj.getId());
         return fromClient(obj);
     }
@@ -79,14 +70,6 @@ public class ClientService {
         newObj.setSubscription(obj.getSubscription());
         return clientRepository.save(newObj);
     }
-
-
-
-
-//    public Client findByIdClient(Long id){
-//
-//    }
-
 
 
 }

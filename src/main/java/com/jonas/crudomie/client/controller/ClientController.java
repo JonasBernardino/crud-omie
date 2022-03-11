@@ -2,7 +2,6 @@ package com.jonas.crudomie.client.controller;
 
 import com.jonas.crudomie.client.dto.ClientDtoFull;
 import com.jonas.crudomie.client.dto.ClientDtoShort;
-import com.jonas.crudomie.client.model.Client;
 import com.jonas.crudomie.client.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -53,14 +52,9 @@ public class ClientController {
         return  ResponseEntity.created(uri).build();
     }
 
-//    @PutMapping("/short{/id}")
-//    public ResponseEntity<ClientDtoShort> updateClient(@PathVariable Long id, @RequestBody ClientDtoShort clientDtoShort){
-//        ClientDtoShort newObj = new ClientDtoShort(clientService.updateClientShort(id, clientDtoShort));
-//        return ResponseEntity.ok().body(newObj);
-//    }
     @PutMapping
     public ResponseEntity<ClientDtoShort> update(@RequestBody ClientDtoShort obj){
-        obj = new ClientDtoShort(clientService.update(obj));
+        obj = new ClientDtoShort(clientService.updateClientShort(obj));
         return ResponseEntity.ok().body(obj);
     }
 
