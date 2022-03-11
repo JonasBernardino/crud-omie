@@ -27,4 +27,21 @@ public class EmailService {
         Page<EmailDtoShort> page = result.map(x -> new EmailDtoShort(x));
         return page;
     }
+
+    public EmailDtoFull findByIdEmail(Long id) {
+        Email result = emailRepository.findById(id).get();
+        EmailDtoFull dto = new EmailDtoFull(result);
+        return dto;
+    }
+
+
+    private Email fromEmail(EmailDtoFull obj) {
+        Email newObj = new Email();
+        newObj.setId(obj.getId());
+        newObj.setCategory(obj.getCategory());
+        newObj.setName(obj.getName());
+        newObj.setEmail(obj.getEmail());
+        return emailRepository.save(newObj);
+    }
+
 }

@@ -5,11 +5,13 @@ import com.jonas.crudomie.email.dto.EmailDtoShort;
 import com.jonas.crudomie.email.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("api/v1/email")
@@ -26,4 +28,9 @@ public class EmailController {
     public Page<EmailDtoShort> findAllEmailShort(Pageable pageable){
         return emailService.findAllEmailShort(pageable);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<EmailDtoFull> findByIdEmail(@PathVariable Long id){
+        return ResponseEntity.ok().body(emailService.findByIdEmail(id));
+    }
+
 }
