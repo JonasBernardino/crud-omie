@@ -10,8 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
-import java.util.List;
-
 @Service
 public class ClientService {
 
@@ -28,6 +26,30 @@ public class ClientService {
         Page<Client> result = clientRepository.findAll(pageable);
         Page<ClientDtoShort> page = result.map(x -> new ClientDtoShort(x));
         return page;
+    }
+
+    public ClientDtoFull findByIdClient(Long id){
+        Client result = clientRepository.findById(id).get();
+        ClientDtoFull dto = new ClientDtoFull(result);
+        return dto;
+    }
+    public void deleteClient(Long id){
+        findByIdClient(id);
+        clientRepository.deleteById(id);
+    }
+
+    public Client create(ClientDtoShort obj) {
+        return fromClient(obj);
+    }
+
+    private Client fromClient(ClientDtoShort obj){
+        Client newObj = new Client();
+        newObj.setId(obj.getId());
+        newObj.setName(obj.getName());
+        newObj.setNickname(obj.getNickname());
+        newObj.setStatus(obj.getStatus());
+        newObj.setSubscription(obj.getSubscription());
+        return clientRepository.save(newObj);
     }
 
 

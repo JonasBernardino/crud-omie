@@ -24,7 +24,7 @@ public class Email {
     private String name;
     private String email;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JsonIgnore
     @JoinColumn(name = "id_client")
     private Client client;

@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Status {
-    DISABLED,
     ENABLED,
+    DISABLED,
     SUSPENDED
 }
