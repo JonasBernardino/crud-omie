@@ -4,7 +4,7 @@ import com.jonas.crudomie.client.dto.ClientDtoFull;
 import com.jonas.crudomie.client.dto.ClientDtoShort;
 import com.jonas.crudomie.client.model.Client;
 import com.jonas.crudomie.client.repository.ClientRepository;
-import org.hibernate.ObjectNotFoundException;
+import com.jonas.crudomie.client.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +39,7 @@ public class ClientService {
     public Client findById(Long id){
       Optional<Client> obj = clientRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id:",id + Client.class.getName()));
+                "Objeto não encontrado! Id:" + id + Client.class.getName()));
     }
 
     public ClientDtoShort findByIdClientShort(Long id) {
@@ -49,7 +49,6 @@ public class ClientService {
     }
 
     public void deleteClient(Long id){
-        findByIdClient(id);
         clientRepository.deleteById(id);
     }
 

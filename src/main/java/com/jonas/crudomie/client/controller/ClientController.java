@@ -28,6 +28,11 @@ public class ClientController {
         return clientService.findAllClientShort(pageable);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCliEntity(@PathVariable Long id){
+        clientService.deleteClient(id);
+        return ResponseEntity.noContent().build();
+    }
     @GetMapping("/{id}")
     public ResponseEntity<ClientDtoFull> findByIdClient(@PathVariable Long id){
         ClientDtoFull clientDtoFull = clientService.findByIdClient(id);
@@ -37,12 +42,6 @@ public class ClientController {
     public ResponseEntity<ClientDtoShort> findByIdClientShort(@PathVariable Long id){
         ClientDtoShort clientDtoShort = clientService.findByIdClientShort(id);
         return ResponseEntity.ok().body(clientDtoShort);
-    }
-
-    @DeleteMapping("{/id}")
-    public ResponseEntity<Void> deleteCliEntity(@PathVariable Long id){
-        clientService.deleteClient(id);
-        return ResponseEntity.noContent().build();
     }
 
     @PostMapping

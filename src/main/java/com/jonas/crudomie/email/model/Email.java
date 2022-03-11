@@ -18,9 +18,11 @@ public class Email {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
     private String name;
     private String email;
 
