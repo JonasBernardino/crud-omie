@@ -1,6 +1,7 @@
 package com.jonas.crudomie.email.controller;
 
 import com.jonas.crudomie.email.dto.EmailDtoFull;
+import com.jonas.crudomie.email.dto.EmailDtoShort;
 import com.jonas.crudomie.email.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,5 +21,9 @@ public class EmailController {
     @GetMapping("/full")
     public Page<EmailDtoFull> findAllEmailFull(Pageable pageable){
         return emailService.findAllEmailFull(pageable);
+    }
+    @GetMapping("/short")
+    public Page<EmailDtoShort> findAllEmailShort(Pageable pageable){
+        return emailService.findAllEmailShort(pageable);
     }
 }
