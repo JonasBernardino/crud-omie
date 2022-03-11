@@ -1,5 +1,6 @@
 package com.jonas.crudomie.client.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jonas.crudomie.client.enumClient.Status;
 import com.jonas.crudomie.email.model.Email;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class Client {
     private Status status;
 
     @OneToMany()
+    @JsonIgnore
     @JoinColumn(name = "id_client")
     private List<Email> emails;
 }
