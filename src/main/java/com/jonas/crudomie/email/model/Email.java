@@ -19,16 +19,16 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 
     private String name;
     private String email;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
+    @JoinColumn(name = "client_id")
     @JsonIgnore
-    @JoinColumn(name = "id_client")
     private Client client;
 
     public Category getCategory() {

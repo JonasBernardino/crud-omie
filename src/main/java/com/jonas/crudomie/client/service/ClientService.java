@@ -5,11 +5,14 @@ import com.jonas.crudomie.client.dto.ClientDtoShort;
 import com.jonas.crudomie.client.model.Client;
 import com.jonas.crudomie.client.repository.ClientRepository;
 import com.jonas.crudomie.client.service.exceptions.ObjectNotFoundException;
+import com.jonas.crudomie.email.model.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -55,6 +58,7 @@ public class ClientService {
     public Client createClient(ClientDtoShort obj) {
         return fromClient(obj);
     }
+
     public Client updateClientShort(ClientDtoShort obj) {
         findById(obj.getId());
         return fromClient(obj);
@@ -67,6 +71,29 @@ public class ClientService {
         newObj.setNickname(obj.getNickname());
         newObj.setStatus(obj.getStatus());
         newObj.setSubscription(obj.getSubscription());
+        return clientRepository.save(newObj);
+    }
+    public Client createClientFull(ClientDtoFull objFull){
+        return fromClientFull(objFull);
+    }
+
+    private Client fromClientFull(ClientDtoFull obj){
+        Client newObj = new Client();
+        newObj.setId(obj.getId());
+        newObj.setSubscription(obj.getSubscription());
+        newObj.setName(obj.getName());
+        newObj.setNickname(obj.getName());
+        newObj.setStatus(obj.getStatus());
+        List<Email> newEmail = new ArrayList<>();
+        obj.getEmails().forEach(email -> newEmail.add(
+        new Email(
+                email.getId(),
+                email.getCategory(),
+                email.getName(),
+                email.getName(),
+                newObj
+                )));
+        newObj.setEmails(newEmail);
         return clientRepository.save(newObj);
     }
 

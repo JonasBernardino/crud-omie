@@ -51,6 +51,14 @@ public class ClientController {
         return  ResponseEntity.created(uri).build();
     }
 
+    @PostMapping("/full")
+    public ResponseEntity<ClientDtoFull> createClient(@RequestBody ClientDtoFull obj){
+        obj = new ClientDtoFull(clientService.createClientFull(obj));
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(obj.getId()).toUri();
+        return  ResponseEntity.created(uri).build();
+    }
+
     @PutMapping
     public ResponseEntity<ClientDtoShort> update(@RequestBody ClientDtoShort obj){
         obj = new ClientDtoShort(clientService.updateClientShort(obj));

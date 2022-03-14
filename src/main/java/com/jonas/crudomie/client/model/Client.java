@@ -21,12 +21,15 @@ public class Client {
     private String subscription;
     private String name;
     private String nickname;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;
 
-    @OneToMany()
-    @JsonIgnore
-    @JoinColumn(name = "id_client")
+    @OneToMany(
+            mappedBy = "client",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )@JsonIgnore
     private List<Email> emails;
 }
